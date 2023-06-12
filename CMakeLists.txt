@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR) # need for FetchContent
 
-project(join_server)
-
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
+project(join_server VERSION ${PROJECT_VESRION})
 
 find_package(Boost)
 include_directories(${Boost_INCLUDE_DIR})
