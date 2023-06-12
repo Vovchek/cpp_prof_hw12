@@ -26,7 +26,7 @@ public:
         char *ptr = std::strtok(buff, " ");
         if(!ptr)
             return errMsg(-1, buff);
-        if(!_strnicmp(ptr, commands[0], strlen(commands[0]))) { // INSERT
+        if(!strnicmp(ptr, commands[0], strlen(commands[0]))) { // INSERT
             ptr = strtok(nullptr, " ");
             if(tolower(*ptr) != 'a' && tolower(*ptr) != 'b' || ptr[1] != '\0')
                 return errMsg(1, buff);
@@ -43,16 +43,16 @@ public:
             sql += ptr;
             sql += "');";
 
-        } else if(!_strnicmp(buff, commands[1], strlen(commands[1]))) { // TRUCNCATE
+        } else if(!strnicmp(buff, commands[1], strlen(commands[1]))) { // TRUCNCATE
             ptr = strtok(nullptr, " \n");
             if(tolower(*ptr) != 'a' && tolower(*ptr) != 'b' || ptr[1] != '\0')
                 return errMsg(1, buff);
             sql = "DELETE FROM ";
             sql += ptr;
             sql += ";";
-        } else if(!_strnicmp(ptr, commands[2], strlen(commands[2]))) { // INTERSECTION
+        } else if(!strnicmp(ptr, commands[2], strlen(commands[2]))) { // INTERSECTION
             sql = "SELECT a.id, a.label, b.label FROM a, b WHERE a.id=b.id;";
-        } else if(!_strnicmp(ptr, commands[3], strlen(commands[3]))) { // SYMMETRIC_DIFFERENCE
+        } else if(!strnicmp(ptr, commands[3], strlen(commands[3]))) { // SYMMETRIC_DIFFERENCE
             sql = "SELECT id, label la, NULL lb FROM a WHERE id NOT IN (SELECT id FROM b) UNION SELECT id, NULL,label FROM b WHERE id NOT IN (SELECT id FROM a);";
         } else {
             return errMsg(-1, buff);
