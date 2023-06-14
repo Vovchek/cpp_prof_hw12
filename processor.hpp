@@ -10,16 +10,18 @@ private:
     ICommand<SqliteStore> *db{nullptr};
 
     Net2SQL() {
-        db = SqliteStore::createInstance();
+        db = &SqliteStore::getInstance();
     }
 
 protected:
     ~Net2SQL() {
-        db->Delete();
     };
 
 public:
-    void Delete() override {delete this;}
+    static Net2SQL& getInstance() {
+        static Net2SQL instance;
+        return instance;
+    }
     size_t process(char *buff, size_t length) override {
         const char *commands[] = {"INSERT", "TRUNCATE","INTERSECTION","SYMMETRIC_DIFFERENCE"};
         int ec = 0;
@@ -66,7 +68,7 @@ public:
 
         return length;
     }
-    friend ICommand* ICommand::createInstance();
+    friend ICommand& ICommand::getInstance();
 
 private:
     size_t errMsg(int ec, char *buff) {

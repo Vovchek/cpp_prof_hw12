@@ -33,7 +33,7 @@ endif()
 add_executable(${PROJECT_NAME} main.cpp "${sqlite3_SOURCE_DIR}/sqlite3.c")
 target_include_directories(${PROJECT_NAME} PUBLIC "${sqlite3_SOURCE_DIR}")
 set_target_properties(${PROJECT_NAME} PROPERTIES
-  CXX_STANDARD 14
+  CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)

@@ -12,7 +12,7 @@ using boost::asio::ip::tcp;
 class session : public std::enable_shared_from_this<session> {
  public:
   session(tcp::socket socket) : socket_(std::move(socket)) {
-    cmd = Net2SQL::createInstance();
+    cmd = &ICommand<Net2SQL>::getInstance();
   }
 
   void start() { do_read(); }
