@@ -8,11 +8,13 @@
 
 class SqliteStore : public ICommand<SqliteStore> {
  private:
-  sqlite3* handle{nullptr};
-  const char* db_name{":memory:"};
+  static inline sqlite3* handle{nullptr};
+  static inline const char* db_name{":memory:"};
   //size_t buff_size_{1024};
 
   SqliteStore() {
+  }
+  void initSqlite() {
     if (sqlite3_open(db_name, &handle)) {
       throw std::runtime_error{"SQlite open error"};
     }
@@ -35,6 +37,8 @@ class SqliteStore : public ICommand<SqliteStore> {
  public:
   void Delete() override { delete this; }
   size_t process(char* buff, size_t length) override {
+    if(!handle)
+      initSqlite();   
     std::ostringstream ss;
     auto print_results = [](void* pss, int columns, char** data,
                             char** names) -> int {

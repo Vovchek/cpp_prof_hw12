@@ -14,7 +14,9 @@ private:
     }
 
 protected:
-    ~Net2SQL() {};
+    ~Net2SQL() {
+        db->Delete();
+    };
 
 public:
     void Delete() override {delete this;}
